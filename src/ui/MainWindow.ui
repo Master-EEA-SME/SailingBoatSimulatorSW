@@ -17,8 +17,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>140</y>
+      <x>480</x>
+      <y>40</y>
       <width>211</width>
       <height>221</height>
      </rect>
@@ -28,7 +28,7 @@
       <enum>QLayout::SetNoConstraint</enum>
      </property>
      <item>
-      <widget class="BoatWidget" name="BoatDesign" native="true"/>
+      <widget class="BoatWidget" name="BoatWidget" native="true"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="CapControl">
@@ -39,14 +39,14 @@
         <enum>QLayout::SetNoConstraint</enum>
        </property>
        <item>
-        <widget class="QPushButton" name="MinusButton">
+        <widget class="QPushButton" name="CapControlMinusButton">
          <property name="text">
           <string>-</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="PlusButton">
+        <widget class="QPushButton" name="CapControlPlusButton">
          <property name="text">
           <string>+</string>
          </property>
@@ -60,6 +60,96 @@
         <string>Simulate</string>
        </property>
       </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>210</y>
+      <width>251</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="CompassLayout">
+     <item>
+      <widget class="QLabel" name="NorthLabel">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>N</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="CompassSubLayout1">
+       <item>
+        <widget class="QLabel" name="WestLabel">
+         <property name="text">
+          <string>W</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="CompassWidget" native="true"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="EastLabel">
+         <property name="text">
+          <string>E</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="SouthLabel">
+       <property name="text">
+        <string>S</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="CompassValueLabel">
+       <property name="text">
+        <string>250°</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="CompassSubLayout2">
+       <item>
+        <widget class="QPushButton" name="CompassTurnLeftButton">
+         <property name="text">
+          <string>-</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="CompassTurnRightButton">
+         <property name="text">
+          <string>+</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
