@@ -20,7 +20,7 @@
       <x>9</x>
       <y>9</y>
       <width>620</width>
-      <height>266</height>
+      <height>502</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -260,6 +260,96 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="NMEAGb">
+         <property name="title">
+          <string>NMEA</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="NMEALayout">
+            <item>
+             <widget class="QPlainTextEdit" name="NMEAOutput">
+              <property name="lineWrapMode">
+               <enum>QPlainTextEdit::NoWrap</enum>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+              <property name="plainText">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <item alignment="Qt::AlignTop">
+               <widget class="QComboBox" name="NMEASelect">
+                <property name="editable">
+                 <bool>false</bool>
+                </property>
+                <property name="currentIndex">
+                 <number>-1</number>
+                </property>
+                <property name="placeholderText">
+                 <string>NMEA</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>None</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>GPGGA</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>GPRMC</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignTop">
+               <widget class="QPushButton" name="NMEAClearButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Clear</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </item>

@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets, QtGui, QtCore
 
 class BoatWidget(QtWidgets.QWidget):
     def paintEvent(self, a0: QtGui.QPaintEvent) -> None:
