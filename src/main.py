@@ -1,7 +1,8 @@
-# from PyQt6 import QtWidgets
+import os
 import sys
 from MainWindow import MainWindow
 from PySide6 import QtWidgets
+from PySide6 import QtGui, QtQml
 
 def main(argv):
     print("Hello, World!")
