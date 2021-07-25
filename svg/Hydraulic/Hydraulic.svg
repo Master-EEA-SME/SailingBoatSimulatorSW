@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="620px" height="521px" viewBox="-5 -5 620 521" style="background-color: rgb(255, 255, 255);">
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="mx-gradient-none-0-none-0-s-0">
+            <stop offset="0%" style="stop-color:none;stop-opacity:0"/>
+            <stop offset="100%" style="stop-color:none;stop-opacity:0"/>
+        </linearGradient>
+    </defs>
+    <g>
+        <g id="RubberPart" transform="rotate(42,413.04,293.52)">
+            <path d="M 412.52 0 C 362.52 85.41 362.52 214.59 412.52 300 C 462.52 214.59 462.52 85.41 412.52 0 Z" fill="#ffffff" stroke="#000000" stroke-miterlimit="10" pointer-events="all"/>
+            <rect x="327.6" y="361.46" width="170.88" height="30" fill="#ffffff" stroke="#000000" transform="rotate(90,413.04,376.46)" pointer-events="all"/>
+            <ellipse id="RudderAnchor" cx="413.04" cy="293.52" rx="23.515" ry="23.515" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+            <ellipse cx="413.04" cy="293.52" rx="14.535" ry="14.535" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+        </g>
+        <g id="HydraulicPart" transform="rotate(0,40.02,480)">
+            <rect id="HydraulicArm" x="280.02" y="465" width="118.98" height="30" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+            <ellipse cx="40.02" cy="480" rx="40" ry="40" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+            <rect x="80.02" y="450" width="200" height="60" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+            <path d="M 40.02 440 L 80.02 440 L 80.02 520 L 80.02 520 L 40.02 520 L 40.02 440 Z" fill="#ffffff" stroke="none" transform="rotate(-180,60.02,480)" pointer-events="all"/>
+            <path d="M 40.02 440 L 40.02 520 L 40.02 520 L 80.02 520 L 80.02 440 L 40.02 440" fill="#ffffff" stroke="none" transform="rotate(-180,60.02,480)" pointer-events="all"/>
+            <path d="M 80.02 520 L 40.02 520 L 40.02 440 L 80.02 440" fill="none" stroke="#000000" stroke-miterlimit="10" transform="rotate(-180,60.02,480)" pointer-events="all"/>
+            <ellipse id="HydraulicAnchor" cx="40.02" cy="480" rx="25" ry="25" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+            <g id="HydraulicConnector" transform="translate(0, 0)">
+                <ellipse cx="412.53" cy="480" rx="23.515" ry="23.515" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+                <ellipse cx="412.53" cy="479.99" rx="14.535" ry="14.535" fill="#ffffff" stroke="#000000" pointer-events="all"/>
+            </g>
+        </g>
+    </g>
+</svg>

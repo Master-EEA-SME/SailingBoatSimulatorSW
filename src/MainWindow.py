@@ -4,7 +4,9 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self)        
+        self.ui.CapControlMinusButton.clicked.connect(self.ui.BoatWidget.insert)
+        self.ui.CapControlPlusButton.clicked.connect(self.ui.BoatWidget.extract)
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.rotate)
         timer.start(100)

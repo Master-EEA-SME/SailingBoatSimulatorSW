@@ -249,8 +249,8 @@ class Ui_MainWindow(object):
         self.BoatLayout.setSizeConstraint(QLayout.SetNoConstraint)
         self.BoatWidget = BoatWidget(self.BoatGb)
         self.BoatWidget.setObjectName(u"BoatWidget")
-        sizePolicy1.setHeightForWidth(self.BoatWidget.sizePolicy().hasHeightForWidth())
-        self.BoatWidget.setSizePolicy(sizePolicy1)
+        sizePolicy3.setHeightForWidth(self.BoatWidget.sizePolicy().hasHeightForWidth())
+        self.BoatWidget.setSizePolicy(sizePolicy3)
 
         self.BoatLayout.addWidget(self.BoatWidget)
 
