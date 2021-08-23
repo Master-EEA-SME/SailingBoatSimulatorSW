@@ -4,9 +4,11 @@ class Comm():
     __STARTCODE = 0x55
     def __init__(self) -> None:
         self.__Serial = Serial()
-    def setConfig(self, port : str, baud : int):
-        self.__Serial.port = port
-        self.__Serial.baudrate = baud
+    def setConfig(self, port : str = None, baud : int = None):
+        if port != None:
+            self.__Serial.port = port
+        if baud != None:
+            self.__Serial.baudrate = baud
         self.__Serial.bytesize = 8
         self.__Serial.timeout = 1
     def isOpen(self):
@@ -62,4 +64,6 @@ class Comm():
                 if buf[i] != 1:
                     return False
         return True
+    def getPort(self) -> str:
+        return self.__Serial.port
     

@@ -21,10 +21,36 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(976, 670)
+        self.actionOpen = QAction(MainWindow)
+        self.actionOpen.setObjectName(u"actionOpen")
+        self.actionCOM1 = QAction(MainWindow)
+        self.actionCOM1.setObjectName(u"actionCOM1")
+        self.action4800 = QAction(MainWindow)
+        self.action4800.setObjectName(u"action4800")
+        self.action9600 = QAction(MainWindow)
+        self.action9600.setObjectName(u"action9600")
+        self.action19200 = QAction(MainWindow)
+        self.action19200.setObjectName(u"action19200")
+        self.action38400 = QAction(MainWindow)
+        self.action38400.setObjectName(u"action38400")
+        self.action57600 = QAction(MainWindow)
+        self.action57600.setObjectName(u"action57600")
+        self.action115200 = QAction(MainWindow)
+        self.action115200.setObjectName(u"action115200")
+        self.action128000 = QAction(MainWindow)
+        self.action128000.setObjectName(u"action128000")
+        self.action256000 = QAction(MainWindow)
+        self.action256000.setObjectName(u"action256000")
+        self.action1000000 = QAction(MainWindow)
+        self.action1000000.setObjectName(u"action1000000")
+        self.action2000000 = QAction(MainWindow)
+        self.action2000000.setObjectName(u"action2000000")
+        self.action4000000 = QAction(MainWindow)
+        self.action4000000.setObjectName(u"action4000000")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalLayout_7 = QHBoxLayout(self.centralwidget)
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.verticalLayout_8 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.verticalLayout_7 = QVBoxLayout()
@@ -237,6 +263,44 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.NMEAGb)
 
+        self.HmiGridLayout = QGridLayout()
+        self.HmiGridLayout.setObjectName(u"HmiGridLayout")
+        self.TribordButton = QPushButton(self.centralwidget)
+        self.TribordButton.setObjectName(u"TribordButton")
+
+        self.HmiGridLayout.addWidget(self.TribordButton, 1, 2, 1, 1)
+
+        self.BabordButton = QPushButton(self.centralwidget)
+        self.BabordButton.setObjectName(u"BabordButton")
+
+        self.HmiGridLayout.addWidget(self.BabordButton, 1, 0, 1, 1)
+
+        self.StandbyButton = QPushButton(self.centralwidget)
+        self.StandbyButton.setObjectName(u"StandbyButton")
+
+        self.HmiGridLayout.addWidget(self.StandbyButton, 1, 1, 1, 1)
+
+        self.LedBabord = QRadioButton(self.centralwidget)
+        self.LedBabord.setObjectName(u"LedBabord")
+        self.LedBabord.setEnabled(False)
+
+        self.HmiGridLayout.addWidget(self.LedBabord, 0, 0, 1, 1)
+
+        self.LedStandby = QRadioButton(self.centralwidget)
+        self.LedStandby.setObjectName(u"LedStandby")
+        self.LedStandby.setEnabled(False)
+
+        self.HmiGridLayout.addWidget(self.LedStandby, 0, 1, 1, 1)
+
+        self.LedTribord = QRadioButton(self.centralwidget)
+        self.LedTribord.setObjectName(u"LedTribord")
+        self.LedTribord.setEnabled(False)
+
+        self.HmiGridLayout.addWidget(self.LedTribord, 0, 2, 1, 1)
+
+
+        self.verticalLayout_7.addLayout(self.HmiGridLayout)
+
 
         self.horizontalLayout_2.addLayout(self.verticalLayout_7)
 
@@ -253,6 +317,16 @@ class Ui_MainWindow(object):
         self.BoatWidget.setSizePolicy(sizePolicy3)
 
         self.BoatLayout.addWidget(self.BoatWidget)
+
+        self.HydraulicAngle = QLabel(self.BoatGb)
+        self.HydraulicAngle.setObjectName(u"HydraulicAngle")
+
+        self.BoatLayout.addWidget(self.HydraulicAngle, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
+        self.HydraulicManualControl = QRadioButton(self.BoatGb)
+        self.HydraulicManualControl.setObjectName(u"HydraulicManualControl")
+
+        self.BoatLayout.addWidget(self.HydraulicManualControl, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.BoatControlGb = QGroupBox(self.BoatGb)
         self.BoatControlGb.setObjectName(u"BoatControlGb")
@@ -290,16 +364,39 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.BoatGb)
 
 
-        self.horizontalLayout_7.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_2)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 976, 22))
+        self.menuSerialPort = QMenu(self.menubar)
+        self.menuSerialPort.setObjectName(u"menuSerialPort")
+        self.menuPort = QMenu(self.menuSerialPort)
+        self.menuPort.setObjectName(u"menuPort")
+        self.menuBaudRate = QMenu(self.menuSerialPort)
+        self.menuBaudRate.setObjectName(u"menuBaudRate")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        self.menubar.addAction(self.menuSerialPort.menuAction())
+        self.menuSerialPort.addAction(self.menuPort.menuAction())
+        self.menuSerialPort.addAction(self.menuBaudRate.menuAction())
+        self.menuSerialPort.addAction(self.actionOpen)
+        self.menuPort.addAction(self.actionCOM1)
+        self.menuBaudRate.addAction(self.action4800)
+        self.menuBaudRate.addAction(self.action9600)
+        self.menuBaudRate.addAction(self.action19200)
+        self.menuBaudRate.addAction(self.action38400)
+        self.menuBaudRate.addAction(self.action57600)
+        self.menuBaudRate.addAction(self.action115200)
+        self.menuBaudRate.addAction(self.action128000)
+        self.menuBaudRate.addAction(self.action256000)
+        self.menuBaudRate.addAction(self.action1000000)
+        self.menuBaudRate.addAction(self.action2000000)
+        self.menuBaudRate.addAction(self.action4000000)
 
         self.retranslateUi(MainWindow)
 
@@ -311,6 +408,19 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.actionOpen.setText(QCoreApplication.translate("MainWindow", u"Open", None))
+        self.actionCOM1.setText(QCoreApplication.translate("MainWindow", u"COM1", None))
+        self.action4800.setText(QCoreApplication.translate("MainWindow", u"4800", None))
+        self.action9600.setText(QCoreApplication.translate("MainWindow", u"9600", None))
+        self.action19200.setText(QCoreApplication.translate("MainWindow", u"19200", None))
+        self.action38400.setText(QCoreApplication.translate("MainWindow", u"38400", None))
+        self.action57600.setText(QCoreApplication.translate("MainWindow", u"57600", None))
+        self.action115200.setText(QCoreApplication.translate("MainWindow", u"115200", None))
+        self.action128000.setText(QCoreApplication.translate("MainWindow", u"128000", None))
+        self.action256000.setText(QCoreApplication.translate("MainWindow", u"256000", None))
+        self.action1000000.setText(QCoreApplication.translate("MainWindow", u"1000000", None))
+        self.action2000000.setText(QCoreApplication.translate("MainWindow", u"2000000", None))
+        self.action4000000.setText(QCoreApplication.translate("MainWindow", u"4000000", None))
         self.CompassGroupBox.setTitle(QCoreApplication.translate("MainWindow", u"Compass", None))
         self.CompassValueLabel.setText(QCoreApplication.translate("MainWindow", u"250\u00b0", None))
         self.CompassControlGb.setTitle(QCoreApplication.translate("MainWindow", u"Direction", None))
@@ -332,10 +442,21 @@ class Ui_MainWindow(object):
 
         self.NMEASelect.setPlaceholderText(QCoreApplication.translate("MainWindow", u"NMEA", None))
         self.NMEAClearButton.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
+        self.TribordButton.setText(QCoreApplication.translate("MainWindow", u"Tribord", None))
+        self.BabordButton.setText(QCoreApplication.translate("MainWindow", u"Babord", None))
+        self.StandbyButton.setText(QCoreApplication.translate("MainWindow", u"Standby", None))
+        self.LedBabord.setText(QCoreApplication.translate("MainWindow", u"Led Babord", None))
+        self.LedStandby.setText(QCoreApplication.translate("MainWindow", u"Led Standby", None))
+        self.LedTribord.setText(QCoreApplication.translate("MainWindow", u"Led Tribord", None))
         self.BoatGb.setTitle(QCoreApplication.translate("MainWindow", u"Boat", None))
+        self.HydraulicAngle.setText(QCoreApplication.translate("MainWindow", u"0\u00b0", None))
+        self.HydraulicManualControl.setText(QCoreApplication.translate("MainWindow", u"Manual control", None))
         self.BoatControlGb.setTitle(QCoreApplication.translate("MainWindow", u"Direction", None))
         self.CapControlMinusButton.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.CapControlPlusButton.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.SimulateButton.setText(QCoreApplication.translate("MainWindow", u"Simulate", None))
+        self.menuSerialPort.setTitle(QCoreApplication.translate("MainWindow", u"Serial Port", None))
+        self.menuPort.setTitle(QCoreApplication.translate("MainWindow", u"Port", None))
+        self.menuBaudRate.setTitle(QCoreApplication.translate("MainWindow", u"BaudRate", None))
     # retranslateUi
 
