@@ -1,23 +1,26 @@
-from PySide6 import QtGui, QtWidgets, QtSvg, QtCore
+from PySide6 import QtGui, QtWidgets, QtCore
+from PySide6 import QtSvg, QtXml
+from ui.SvgModifier import *
 
 class Compass(QtWidgets.QWidget):
     def __init__(self, parent: QtWidgets.QWidget = None) -> None:
         super().__init__(parent)
-        self.resize(600, 600)
-        #self.heightForWidth()
-        self.__base = QtSvg.QSvgRenderer("svg/Compass/base.svg")
-        self.__needle = QtSvg.QSvgRenderer("svg/Compass/needle.svg")
+        self.__SvgFile = QtCore.QFile("svg/Compass/Compass.svg")
+        self.__SvgFile.open(QtCore.QIODevice.ReadOnly)
+        self.__Doc = QtXml.QDomDocument()
+        self.__Doc.setContent(self.__SvgFile)
+        self.__NeedleElem = SvgModifier.getElementbyId("Needle", self.__Doc.childNodes())
+        rotPointElem = self.__NeedleElem.childNodes().at(2).toElement() 
+        self.__NeedleRot = SvgRotation(r=0, x=float(rotPointElem.attribute("cx")), y=float(rotPointElem.attribute("cy")))
         self.rot = 0
 
     def paintEvent(self, event: QtGui.QPaintEvent) -> None:
         painter = QtGui.QPainter(self)
         rect = self.__getBoudingRect()
-        #rect = painter.boundingRect(0, 0, self.width(), self.height(), QtGui.Qt.AlignHCenter | QtGui.Qt.AlignVCenter, "Helllsqdqsdqs")
-        self.__base.render(painter, rect)
-        painter.translate((self.width() / 2), (self.height() / 2))
-        painter.rotate(self.rot + 45)
-        painter.translate(-(self.width() / 2), -(self.height() / 2))
-        self.__needle.render(painter, rect)
+        self.__NeedleRot.rotate(self.rot + 45)
+        self.__NeedleElem.setAttribute("transform", str(self.__NeedleRot))
+        render = QtSvg.QSvgRenderer(self.__Doc.toByteArray())
+        render.render(painter, self.__getBoudingRect())
 
     def __getBoudingRect(self) -> QtCore.QRect:
         res = min(self.width(), self.height())
@@ -29,14 +32,6 @@ class Compass(QtWidgets.QWidget):
     def rotate(self, rot : float):
         self.rot = rot
         self.update()
-
-    def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
-        pass
-        #print(self.objectName(), end=' ')
-        #print(self.width(), end='x')
-        #print(self.height())
-        #self.resize(100, 100)
-        #self.update()
 
 #app = QtWidgets.QApplication()
 #widget = Compass()

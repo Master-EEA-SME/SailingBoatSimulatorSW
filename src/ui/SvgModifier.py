@@ -72,6 +72,8 @@ class SvgRotation():
             
     def rotate(self, r):
         self.__r = r
+    def get_rotation(self):
+        return self.__r
     def setPosX(self, x):
         self.__x = x
     def setPosY(self, y):

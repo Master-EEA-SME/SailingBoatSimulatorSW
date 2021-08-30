@@ -1,5 +1,5 @@
 from serial import Serial
-
+import logging
 class Comm():
     __STARTCODE = 0x55
     def __init__(self) -> None:
@@ -27,29 +27,31 @@ class Comm():
         ack = self.__Serial.read(3)
         return self.__parseData(ack, 1, True)
 
-    def writeAt(self, address : int, len : int, data : list, incr : bool = False) -> bool:
-        if len != 0:
-            self.__sendCmd(False, incr, address, len)
+    def writeAt(self, address : int, xlen : int, data : list, incr : bool = False) -> bool:
+        ret = False
+        if xlen != 0:
+            self.__sendCmd(False, incr, address, xlen)
             self.__Serial.write(data)
-            return self.__getAck()
-        return False
+            ret = self.__getAck()
+        if ret:
+            #logging.info("Write at {0:02X} {1} [{2:02X}] incr={3}".format(address, xlen, data, incr))
+            #logging.info("Write at {0:02X} {1} [{2:02X}] incr={3}".format(address, xlen, data, incr))
+            logging.info("Write at {0:02X} {1} [{2}] incr={3}".format(address, xlen, " ".join("{:02X}".format(x) for x in data), incr))
+        else:
+            logging.warning("Could not write at {0:02X}".format(address))
+        return ret
 
     def readAt(self, address : int, xlen : int, incr : bool = False) -> list:
+        ret = []
         if xlen != 0:
             self.__sendCmd(True, incr, address, xlen)
             rxDat = self.__Serial.read(xlen + 2)
             if self.__parseData(rxDat, xlen, False):
-                return list(rxDat[2:])
+                ret = list(rxDat[2:])
+                logging.info("Read at {0:02X} {1} [{2}] incr={3}".format(address, xlen, " ".join("{:02X}".format(x) for x in ret), incr))
             else:
-                return None
-#            print(len(rxDat))
-#            for i in range(0, len(rxDat) - 1, 16):
-#                print("0x{0:02X}".format(i), end='')
-#                for j in range(16):
-#                    if i + j >= len(rxDat):
-#                        break
-#                    print(" {0:02X}".format(rxDat[i + j]), end='')
-#                print()
+                logging.warning("Could not read at {0:02X}".format(address))
+        return ret
     @staticmethod
     def __parseData(buf, expectedLen, isAck) -> bool:
         expectedLen -= 1

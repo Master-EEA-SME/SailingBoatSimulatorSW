@@ -283,18 +283,23 @@ class Ui_MainWindow(object):
         self.LedBabord = QRadioButton(self.centralwidget)
         self.LedBabord.setObjectName(u"LedBabord")
         self.LedBabord.setEnabled(False)
+        self.LedBabord.setAutoExclusive(False)
 
         self.HmiGridLayout.addWidget(self.LedBabord, 0, 0, 1, 1)
 
         self.LedStandby = QRadioButton(self.centralwidget)
         self.LedStandby.setObjectName(u"LedStandby")
         self.LedStandby.setEnabled(False)
+        self.LedStandby.setCheckable(True)
+        self.LedStandby.setAutoExclusive(False)
 
         self.HmiGridLayout.addWidget(self.LedStandby, 0, 1, 1, 1)
 
         self.LedTribord = QRadioButton(self.centralwidget)
         self.LedTribord.setObjectName(u"LedTribord")
         self.LedTribord.setEnabled(False)
+        self.LedTribord.setCheckable(True)
+        self.LedTribord.setAutoExclusive(False)
 
         self.HmiGridLayout.addWidget(self.LedTribord, 0, 2, 1, 1)
 

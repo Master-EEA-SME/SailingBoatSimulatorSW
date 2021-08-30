@@ -49,6 +49,7 @@ class BoatWidget(QtWidgets.QWidget):
         self.__HydraulicArmConnectorPoint = QtCore.QPointF(float(self.__HydraulicArmConnectorElem.childNodes().at(0).toElement().attribute("cx")), float(self.__HydraulicArmConnectorElem.childNodes().at(0).toElement().attribute("cy")))
         self.__RudderAnchorPoint = QtCore.QPointF(float(self.__RudderAnchorElem.attribute("cx")), float(self.__RudderAnchorElem.attribute("cy")))
         self.__HydraulicAnchorPoint = QtCore.QPointF(float(self.__HydraulicAnchorElem.attribute("cx")), float(self.__HydraulicAnchorElem.attribute("cy")))
+
     def insert(self):
         if (self.__HydraulicPos > 0):
             self.__HydraulicPos -= 10
@@ -71,21 +72,25 @@ class BoatWidget(QtWidgets.QWidget):
         return rect
     def paintEvent(self, a0: QtGui.QPaintEvent) -> None:
         painter = QtGui.QPainter(self)
-        HydraulicArmConnectorCurrentPos = QtCore.QPointF()
-        self.__HydraulicArmConnectorTrans.translate(self.__HydraulicArmLenght*self.__HydraulicPos/100 - self.__HydraulicArmLenght / 2, 0)
-        HydraulicArmConnectorCurrentPos.setX(self.__HydraulicArmConnectorPoint.x() + self.__HydraulicArmConnectorTrans.x())
-        inter = get_intersections(
-            self.__HydraulicAnchorPoint.x(), self.__HydraulicAnchorPoint.y(), abs(HydraulicArmConnectorCurrentPos.x() - self.__HydraulicAnchorPoint.x()), 
-            self.__RudderAnchorPoint.x(), self.__RudderAnchorPoint.y(), abs(self.__HydraulicArmConnectorPoint.y() - self.__RudderAnchorPoint.y()))
-        l = [abs(HydraulicArmConnectorCurrentPos.x() - self.__HydraulicAnchorPoint.x()), abs(self.__HydraulicArmConnectorPoint.y() - self.__RudderAnchorPoint.y())]
-        alpha = [
-            math.acos((inter[2] - self.__HydraulicAnchorPoint.x())/l[0]), 
-            math.asin((self.__RudderAnchorPoint.x() - inter[2])/l[1])]
-        alpha[0] *= 180.0/math.pi
-        alpha[1] *= 180.0/math.pi
-        self.__HydraulicRot.rotate(-alpha[0])
+        #HydraulicArmConnectorCurrentPos = QtCore.QPointF()
+        #self.__HydraulicArmConnectorTrans.translate(self.__HydraulicArmLenght*self.__HydraulicPos/100 - self.__HydraulicArmLenght / 2, 0)
+        #HydraulicArmConnectorCurrentPos.setX(self.__HydraulicArmConnectorPoint.x() + self.__HydraulicArmConnectorTrans.x())
+        #inter = get_intersections(
+        #    self.__HydraulicAnchorPoint.x(), self.__HydraulicAnchorPoint.y(), abs(HydraulicArmConnectorCurrentPos.x() - self.__HydraulicAnchorPoint.x()), 
+        #    self.__RudderAnchorPoint.x(), self.__RudderAnchorPoint.y(), abs(self.__HydraulicArmConnectorPoint.y() - self.__RudderAnchorPoint.y()))
+        #l = [abs(HydraulicArmConnectorCurrentPos.x() - self.__HydraulicAnchorPoint.x()), abs(self.__HydraulicArmConnectorPoint.y() - self.__RudderAnchorPoint.y())]
+        #alpha = [
+        #    math.acos((inter[2] - self.__HydraulicAnchorPoint.x())/l[0]), 
+        #    math.asin((self.__RudderAnchorPoint.x() - inter[2])/l[1])]
+        #alpha[0] *= 180.0/math.pi
+        #alpha[1] *= 180.0/math.pi
+        #self.__turningAngle = alpha[1]
+        #print("alpha[0] = {0}".format(alpha[0]))
+        #print("alpha[1] = {0}".format(alpha[1]))
+
+        #self.__HydraulicRot.rotate(-self.__HydraulicAngle)
         self.__HydraulicPart.setAttribute("transform", str(self.__HydraulicRot))
-        self.__RudderRot.rotate(alpha[1])
+        #self.__RudderRot.rotate(self.__RudderAngle)
         self.__RudderPart.setAttribute("transform", str(self.__RudderRot))
         self.__HydraulicArmConnectorElem.setAttribute("transform", str(self.__HydraulicArmConnectorTrans))
         self.__HydraulicArmElem.setAttribute("width", str(self.__HydraulicArmLenght*self.__HydraulicPos/100))
@@ -96,3 +101,28 @@ class BoatWidget(QtWidgets.QWidget):
         #if inter != None:
         #    painter.drawEllipse(QtCore.QPointF(inter[0], inter[1]), 10, 10)
         #    painter.drawEllipse(QtCore.QPointF(inter[2], inter[3]), 10, 10)
+    def get_turningAngle(self):
+        return -self.__RudderRot.get_rotation()
+    def set_pos(self, pos):
+        if pos < 0:
+            pos = 0
+        elif pos > 100:
+            pos = 100
+        self.__HydraulicPos = pos
+        self.__setAngles()
+        self.update()
+    def __setAngles(self):
+        HydraulicArmConnectorCurrentPos = QtCore.QPointF()
+        self.__HydraulicArmConnectorTrans.translate(self.__HydraulicArmLenght*self.__HydraulicPos/100 - self.__HydraulicArmLenght / 2, 0)
+        HydraulicArmConnectorCurrentPos.setX(self.__HydraulicArmConnectorPoint.x() + self.__HydraulicArmConnectorTrans.x())
+        l = [abs(HydraulicArmConnectorCurrentPos.x() - self.__HydraulicAnchorPoint.x()), abs(self.__HydraulicArmConnectorPoint.y() - self.__RudderAnchorPoint.y())]
+        inter = get_intersections(
+            self.__HydraulicAnchorPoint.x(), self.__HydraulicAnchorPoint.y(), l[0], 
+            self.__RudderAnchorPoint.x(), self.__RudderAnchorPoint.y(), l[1])
+        alpha = [
+            math.acos((inter[2] - self.__HydraulicAnchorPoint.x())/l[0]), 
+            math.asin((self.__RudderAnchorPoint.x() - inter[2])/l[1])]
+        alpha[0] *= 180.0/math.pi
+        alpha[1] *= 180.0/math.pi
+        self.__HydraulicRot.rotate(-alpha[0])
+        self.__RudderRot.rotate(alpha[1])
