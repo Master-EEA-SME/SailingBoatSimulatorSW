@@ -89,8 +89,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.StandbyButton.released.connect(lambda : self.__sendBtnValue(0x0))
         self.ui.TribordButton.pressed.connect(lambda : self.__sendBtnValue(0x1))
         self.ui.TribordButton.released.connect(lambda : self.__sendBtnValue(0x0))
+        self.__initFPGA()
 
-    def __hydraulicManualControlEnableDisable(self):
+    def __hydraulicManualControlEnableDisable(self):  
         self.ui.CapControlMinusButton.setDisabled(not self.ui.HydraulicManualControl.isChecked())
         self.ui.CapControlPlusButton.setDisabled(not self.ui.HydraulicManualControl.isChecked())
     def __update(self):
@@ -136,9 +137,14 @@ class MainWindow(QtWidgets.QMainWindow):
             logging.info("Opened {0}, baud = {1}".format(self.portActionGroup.checkedAction().text(), int(self.baudrateActionGroup.checkedAction().text())))
             self.ui.actionOpen.setText("Close")
             self.__FpgaFreq = int.from_bytes(self.__Comm.readAt(MainWindow.__REG_BASE, 4, True), 'little')
-            logging.info("Fpga freq = {0}".format(self.__FpgaFreq))
-            self.__checkPortTimer.start(1000)
-            self.updateTimer.start(MainWindow.__POLLING_RATE_MS)
+            if self.__FpgaFreq == 0:
+                logging.info("Can't read Fpga frequency")
+                self.__openClosePort()
+            else:
+                logging.info("Fpga freq = {0}".format(self.__FpgaFreq))
+                self.__initFPGA()
+                self.__checkPortTimer.start(1000)
+                self.updateTimer.start(MainWindow.__POLLING_RATE_MS)
         else:
             self.__Comm.close()
             logging.info("Closed {0}".format(self.__Comm.getPort()))
@@ -291,9 +297,14 @@ class MainWindow(QtWidgets.QMainWindow):
         if value != self.__HydraulicPos: 
             self.__HydraulicPos = value
             self.ui.BoatWidget.set_pos(self.__HydraulicPos)
-            self.ui.HydraulicAngle.setText("{0}°".format(int(self.ui.BoatWidget.get_turningAngle())))
+            adcValue = int(utils.map(int(self.ui.BoatWidget.get_turningAngle()), -40, 40, 1300, 3000))
+            self.ui.HydraulicAngle.setText("{0}° ({1})".format(int(self.ui.BoatWidget.get_turningAngle()), adcValue))
             if self.__Comm.isOpen():
-                self.__Comm.writeAt(MainWindow.__VERIN_ANGLE_BASE, 2, int(utils.map(int(self.ui.BoatWidget.get_turningAngle()), -40, 40, 300, 1500)).to_bytes(2, 'little'), True)
+                self.__Comm.writeAt(MainWindow.__VERIN_ANGLE_BASE, 2, adcValue.to_bytes(2, 'little'), True)
     def __sendBtnValue(self, value : int):
         if self.__Comm.isOpen():
             self.__Comm.writeAt(MainWindow.__REG_BASE, 1, value.to_bytes(1, 'little'))
+    def __initFPGA(self):
+        self.__updateCompass(self.__CompassDirection)
+        self.__updateWind(self.__WindDirection, self.__WindForce)
+        self.__updateHydraulic(self.__HydraulicPos)
