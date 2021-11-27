@@ -5,7 +5,6 @@ from PySide6 import QtWidgets
 from PySide6 import QtGui, QtQml
 
 def main(argv):
-    print("Hello, World!")
     app = QtWidgets.QApplication(argv)
     win = MainWindow()
     win.show()

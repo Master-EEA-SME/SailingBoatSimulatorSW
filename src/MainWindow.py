@@ -7,8 +7,8 @@ import utils.utils as utils
 class MainWindow(QtWidgets.QMainWindow):
     __REG_BASE = 0xC0
     __CAP_BASE = 0x40
-    __ANEMO_BASE = 0x00
-    __GIRO_BASE = 0x20
+    __ANEMO_BASE = 0x20
+    __GIRO_BASE = 0x00
     __VERIN_BASE = 0x80
     __VERIN_ANGLE_BASE = 0xA0
     __POLLING_RATE_MS = 100
