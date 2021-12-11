@@ -48,5 +48,5 @@ $ python -m pip install PySide6 PySerial
 ## Execution
 Pour lancer le simulateur ouvrez un terminal et placez vous dans le dossier où ce **README.md** se trouve et lancez la commande suivante :
 ```sh
-$ python src/main.py
+$ python main.py
 ``` 
