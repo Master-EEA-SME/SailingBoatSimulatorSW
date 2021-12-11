@@ -105,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     freq = self.__FpgaFreq / freq
                     value = utils.map(duty, 0, 1, 0, 5)
                     sens = int.from_bytes(self.__Comm.readAt(MainWindow.__REG_BASE + 4, 1), 'little')
-                    if sens:
+                    if not sens:
                         value = -value
                     self.__updateHydraulic(self.__HydraulicPos + value)
 #                    print("value = {0}".format(value))
